@@ -6,11 +6,11 @@
 <div class="top-bar">
   <div class="container">
 
-    <div class="row g-3">
+    <div class="row align-items-center g-2">
 
       <!-- 🔍 SEARCH -->
-      <div class="col-12">
-        <form action="/listings" method="GET" class="search-box w-100 d-flex align-items-center">
+      <div class="col-lg-4 col-12">
+        <form action="/listings" method="GET" class="search-box d-flex">
 
           <input 
             type="text" 
@@ -32,7 +32,7 @@
       </div>
 
       <!-- 📂 CATEGORY -->
-      <div class="col-12">
+      <div class="col-lg-5 col-12">
         <div class="category-bar">
 
           <a href="/listings" class="cat <%= !category ? 'active' : '' %>">All</a>
@@ -48,7 +48,7 @@
       </div>
 
       <!-- 💰 TAX -->
-      <div class="col-12">
+      <div class="col-lg-3 col-12">
         <div class="tax-toggle">
           <input type="checkbox" id="taxToggle">
           <label for="taxToggle">Display price with taxes</label>

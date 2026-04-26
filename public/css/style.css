@@ -219,3 +219,15 @@ footer {
   color: #ff385c !important;
   font-weight: 600;
 }
+.tax-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.category-bar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
