@@ -2,13 +2,13 @@
 
   <div class="container">
 
-    <!-- 🔥 LOGO (FIXED CLEAN) -->
+    <!-- LOGO -->
     <a class="navbar-brand d-flex align-items-center fw-bold fs-5" href="/listings">
       <i class="fa-solid fa-compass text-danger me-2"></i>
       StayFinder
     </a>
 
-    <!-- MOBILE TOGGLE -->
+    <!-- TOGGLE -->
     <button 
       class="navbar-toggler border-0" 
       type="button" 
@@ -18,18 +18,17 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- NAV CONTENT -->
+    <!-- NAV -->
     <div class="collapse navbar-collapse" id="navbarNav">
 
       <!-- LEFT -->
-      <ul class="navbar-nav ms-4 gap-lg-3">
+      <ul class="navbar-nav gap-lg-3">
 
         <li class="nav-item">
           <a href="/listings" class="nav-link fw-semibold">Home</a>
         </li>
 
         <% if(currUser){ %>
-
           <li class="nav-item">
             <a href="/listings/my" class="nav-link fw-semibold">My Listings</a>
           </li>
@@ -39,42 +38,37 @@
               Add Listing
             </a>
           </li>
-
         <% } %>
 
       </ul>
 
       <!-- RIGHT -->
-      <ul class="navbar-nav ms-auto align-items-center gap-2">
+      <ul class="navbar-nav ms-auto mt-3 mt-lg-0 gap-2">
 
         <% if(currUser){ %>
 
-          <!-- USER -->
           <li class="nav-item">
-            <div class="user-badge">
+            <div class="user-badge text-center text-lg-start">
               👤 <%= currUser.username %>
             </div>
           </li>
 
-          <!-- LOGOUT -->
           <li class="nav-item">
-            <a href="/logout" class="btn btn-dark rounded-pill px-3">
+            <a href="/logout" class="btn btn-dark rounded-pill px-3 w-100 w-lg-auto">
               Logout
             </a>
           </li>
 
         <% } else { %>
 
-          <!-- LOGIN -->
           <li class="nav-item">
-            <a href="/login" class="btn btn-outline-dark rounded-pill px-3">
+            <a href="/login" class="btn btn-outline-dark rounded-pill px-3 w-100 w-lg-auto">
               Login
             </a>
           </li>
 
-          <!-- SIGNUP -->
           <li class="nav-item">
-            <a href="/signup" class="btn btn-dark rounded-pill px-3">
+            <a href="/signup" class="btn btn-dark rounded-pill px-3 w-100 w-lg-auto">
               Sign up
             </a>
           </li>
