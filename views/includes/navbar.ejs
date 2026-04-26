@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+
+  <div class="container">
+
+    <!-- 🔥 LOGO (FIXED CLEAN) -->
+    <a class="navbar-brand d-flex align-items-center fw-bold fs-5" href="/listings">
+      <i class="fa-solid fa-compass text-danger me-2"></i>
+      StayFinder
+    </a>
+
+    <!-- MOBILE TOGGLE -->
+    <button 
+      class="navbar-toggler border-0" 
+      type="button" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- NAV CONTENT -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <!-- LEFT -->
+      <ul class="navbar-nav ms-4 gap-lg-3">
+
+        <li class="nav-item">
+          <a href="/listings" class="nav-link fw-semibold">Home</a>
+        </li>
+
+        <% if(currUser){ %>
+
+          <li class="nav-item">
+            <a href="/listings/my" class="nav-link fw-semibold">My Listings</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/listings/new" class="nav-link add-btn">
+              Add Listing
+            </a>
+          </li>
+
+        <% } %>
+
+      </ul>
+
+      <!-- RIGHT -->
+      <ul class="navbar-nav ms-auto align-items-center gap-2">
+
+        <% if(currUser){ %>
+
+          <!-- USER -->
+          <li class="nav-item">
+            <div class="user-badge">
+              👤 <%= currUser.username %>
+            </div>
+          </li>
+
+          <!-- LOGOUT -->
+          <li class="nav-item">
+            <a href="/logout" class="btn btn-dark rounded-pill px-3">
+              Logout
+            </a>
+          </li>
+
+        <% } else { %>
+
+          <!-- LOGIN -->
+          <li class="nav-item">
+            <a href="/login" class="btn btn-outline-dark rounded-pill px-3">
+              Login
+            </a>
+          </li>
+
+          <!-- SIGNUP -->
+          <li class="nav-item">
+            <a href="/signup" class="btn btn-dark rounded-pill px-3">
+              Sign up
+            </a>
+          </li>
+
+        <% } %>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</nav>

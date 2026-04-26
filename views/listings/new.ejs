@@ -1,0 +1,132 @@
+<%- layout("layout/boilerplate") %>
+
+<link rel="stylesheet" href="/css/new.css">
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+
+      <form method="POST" action="/listings" enctype="multipart/form-data" class="row g-3">
+
+        <h2 class="mb-3 fw-bold">Create a New Listing</h2>
+
+        <!-- TITLE -->
+        <div class="col-md-6">
+          <label>Title</label>
+          <input name="listing[title]" class="form-control" required>
+        </div>
+
+        <!-- COUNTRY -->
+        <div class="col-md-6">
+          <label>Country</label>
+          <input name="listing[country]" class="form-control" required>
+        </div>
+        <!-- CATEGORY -->
+        <div class="col-md-6">
+          <label>Category</label>
+          <select name="listing[category]" class="form-select" required>
+            <option value="">Select Category</option>
+            <option>Hotel</option>
+            <option>Villa</option>
+            <option>Resort</option>
+            <option>Apartment</option>
+            <option>Cottage</option>
+          </select>
+        </div>
+
+        <!-- IMAGE -->
+        <div class="col-12">
+          <label>Image</label>
+          <input id="imageInput" name="listing[image]" type="file" class="form-control" required>
+        </div>
+
+        <div class="col-12">
+          <img id="preview" style="max-width:100%; border-radius:10px;">
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="col-12">
+          <label>Description</label>
+          <textarea name="listing[description]" class="form-control" required></textarea>
+        </div>
+
+        <!-- PRICE -->
+        <div class="col-md-4">
+          <label>Price</label>
+          <input name="listing[price]" type="number" class="form-control" required>
+        </div>
+
+        <!-- 📝 USER LOCATION (TEXT ONLY) -->
+        <div class="col-md-8">
+          <label>Display Location (what users see)</label>
+          <input 
+            name="listing[location]"
+            class="form-control"
+            placeholder="e.g. Near Eco Park, Kolkata"
+            required
+          >
+        </div>
+
+        <!-- 📍 GPS BUTTON -->
+        <div class="col-12">
+          <button type="button" id="locBtn" class="btn btn-dark w-100">
+            📍 Capture Exact Location (for map)
+          </button>
+
+          <div id="locStatus" class="mt-2 text-success"></div>
+        </div>
+
+        <!-- 🔥 HIDDEN GPS -->
+        <input type="hidden" name="listing[lat]" id="lat">
+        <input type="hidden" name="listing[lng]" id="lng">
+
+        <!-- SUBMIT -->
+        <div class="col-12">
+          <button class="btn btn-primary w-100">Add Listing</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // IMAGE PREVIEW
+  const imageInput = document.getElementById("imageInput");
+  const preview = document.getElementById("preview");
+
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files[0];
+    if (file) preview.src = URL.createObjectURL(file);
+  });
+
+  // GPS CAPTURE
+  const locBtn = document.getElementById("locBtn");
+  const locStatus = document.getElementById("locStatus");
+
+  locBtn.addEventListener("click", () => {
+
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported");
+      return;
+    }
+
+    locStatus.innerText = "Capturing exact location...";
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+
+        document.getElementById("lat").value = lat;
+        document.getElementById("lng").value = lng;
+
+        locStatus.innerText = "✅ Exact GPS location captured";
+      },
+      () => {
+        locStatus.innerText = "❌ Permission denied";
+      }
+    );
+  });
+</script>

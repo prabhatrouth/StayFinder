@@ -1,0 +1,84 @@
+<%- layout("layout/boilerplate") %>
+
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3">
+
+    <div class="card shadow-lg border-0 p-4 rounded-4">
+      <h2 class="text-center mb-4 fw-bold">Create Account</h2>
+
+      <form method="POST" action="/signup" class="row g-3 needs-validation" novalidate>
+
+        <!-- Username -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">Username</label>
+          <input type="text" name="username" class="form-control" placeholder="Enter username" required>
+          <div class="invalid-feedback">Username is required</div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">Email</label>
+          <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+          <div class="invalid-feedback">Valid email required</div>
+        </div>
+
+        <!-- Password -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">Password</label>
+          <input id="password" type="password" name="password" class="form-control" placeholder="Enter password" required minlength="5">
+          <div class="invalid-feedback">Password must be at least 5 characters</div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">Confirm Password</label>
+          <input id="confirmPassword" type="password" name="confirmPassword" class="form-control" placeholder="Confirm password" required>
+          <div class="invalid-feedback">Passwords must match</div>
+        </div>
+
+        <!-- Button -->
+        <div class="col-12 d-grid mt-3">
+          <button class="btn btn-success btn-lg rounded-3">Sign Up</button>
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center mt-3">
+          <small>Already have an account? <a href="/login">Login</a></small>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= VALIDATION SCRIPT ================= -->
+<script>
+  (() => {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        // password match check
+        if (password !== confirmPassword) {
+          event.preventDefault();
+          event.stopPropagation();
+          alert("Passwords do not match!");
+          return;
+        }
+
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>

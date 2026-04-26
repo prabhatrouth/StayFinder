@@ -1,0 +1,57 @@
+<%- layout("layout/boilerplate") %>
+
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3">
+
+    <div class="card shadow-lg border-0 p-4 rounded-4">
+      <h2 class="text-center mb-4 fw-bold">Login</h2>
+
+      <form method="POST" action="/login" class="row g-3 needs-validation" novalidate>
+
+        <!-- Username -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">Username</label>
+          <input type="text" name="username" class="form-control" placeholder="Enter username" required>
+          <div class="invalid-feedback">Username is required</div>
+        </div>
+
+        <!-- Password -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">Password</label>
+          <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+          <div class="invalid-feedback">Password is required</div>
+        </div>
+
+        <!-- Button -->
+        <div class="col-12 d-grid mt-3">
+          <button class="btn btn-primary btn-lg rounded-3">Login</button>
+        </div>
+
+        <!-- Signup Link -->
+        <div class="text-center mt-3">
+          <small>Don’t have an account? <a href="/signup">Sign up</a></small>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= VALIDATION SCRIPT ================= -->
+<script>
+  (() => {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>

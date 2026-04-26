@@ -1,0 +1,103 @@
+<%- layout("layout/boilerplate") %>
+
+<link rel="stylesheet" href="/css/index.css">
+
+<!-- 🔥 TOP BAR -->
+<div class="top-bar">
+  <div class="container top-flex">
+
+    <!-- 🔍 SEARCH -->
+    <form action="/listings" method="GET" class="search-box">
+
+      <input 
+        type="text" 
+        name="search" 
+        value="<%= search || '' %>"
+        placeholder="Search destination"
+      >
+
+      <% if(category){ %>
+        <input type="hidden" name="category" value="<%= category %>">
+      <% } %>
+
+      <button type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+
+    </form>
+
+    <!-- 📂 CATEGORY -->
+    <div class="category-bar">
+
+      <a href="/listings" class="cat <%= !category ? 'active' : '' %>">All</a>
+
+      <% categories.forEach(cat => { %>
+        <a href="/listings?category=<%= cat %>" 
+           class="cat <%= category === cat ? 'active' : '' %>">
+          <%= cat %>
+        </a>
+      <% }) %>
+
+    </div>
+
+    <!-- 💰 TAX -->
+    <div class="tax-toggle">
+      <input type="checkbox" id="taxToggle">
+      <label for="taxToggle">Display price with taxes</label>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- 🔥 LISTINGS -->
+<div class="container mt-3">
+
+  <% if(alllisting.length === 0){ %>
+    <p class="text-center text-muted">No results found</p>
+  <% } %>
+
+  <div class="row g-4">
+
+    <% for(let listing of alllisting){ %>
+
+      <div class="col-lg-4 col-md-6">
+
+        <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+
+          <div class="listing-card">
+
+            <img 
+              src="<%= listing.image?.url || 'https://via.placeholder.com/400x300' %>" 
+              class="listing-img"
+            >
+
+            <div class="p-3">
+
+              <h6 class="fw-semibold mb-1">
+                <%= listing.title %>
+              </h6>
+
+              <p class="text-muted small mb-1">
+                <%= listing.location %>, <%= listing.country %>
+              </p>
+
+              <p class="fw-bold price" data-price="<%= listing.price %>">
+                ₹<%= listing.price.toLocaleString("en-IN") %> / night
+              </p>
+
+            </div>
+
+          </div>
+
+        </a>
+
+      </div>
+
+    <% } %>
+
+  </div>
+
+</div>
+
+<script src="/js/tax.js"></script>
