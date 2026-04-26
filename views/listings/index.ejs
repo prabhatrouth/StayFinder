@@ -4,46 +4,57 @@
 
 <!-- 🔥 TOP BAR -->
 <div class="top-bar">
-  <div class="container top-flex">
+  <div class="container">
 
-    <!-- 🔍 SEARCH -->
-    <form action="/listings" method="GET" class="search-box">
+    <div class="row g-3">
 
-      <input 
-        type="text" 
-        name="search" 
-        value="<%= search || '' %>"
-        placeholder="Search destination"
-      >
+      <!-- 🔍 SEARCH -->
+      <div class="col-12">
+        <form action="/listings" method="GET" class="search-box w-100 d-flex align-items-center">
 
-      <% if(category){ %>
-        <input type="hidden" name="category" value="<%= category %>">
-      <% } %>
+          <input 
+            type="text" 
+            name="search" 
+            value="<%= search || '' %>"
+            placeholder="Search destination"
+            class="form-control"
+          >
 
-      <button type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
+          <% if(category){ %>
+            <input type="hidden" name="category" value="<%= category %>">
+          <% } %>
 
-    </form>
+          <button type="submit" class="search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
 
-    <!-- 📂 CATEGORY -->
-    <div class="category-bar">
+        </form>
+      </div>
 
-      <a href="/listings" class="cat <%= !category ? 'active' : '' %>">All</a>
+      <!-- 📂 CATEGORY -->
+      <div class="col-12">
+        <div class="category-bar">
 
-      <% categories.forEach(cat => { %>
-        <a href="/listings?category=<%= cat %>" 
-           class="cat <%= category === cat ? 'active' : '' %>">
-          <%= cat %>
-        </a>
-      <% }) %>
+          <a href="/listings" class="cat <%= !category ? 'active' : '' %>">All</a>
 
-    </div>
+          <% categories.forEach(cat => { %>
+            <a href="/listings?category=<%= cat %>" 
+               class="cat <%= category === cat ? 'active' : '' %>">
+              <%= cat %>
+            </a>
+          <% }) %>
 
-    <!-- 💰 TAX -->
-    <div class="tax-toggle">
-      <input type="checkbox" id="taxToggle">
-      <label for="taxToggle">Display price with taxes</label>
+        </div>
+      </div>
+
+      <!-- 💰 TAX -->
+      <div class="col-12">
+        <div class="tax-toggle">
+          <input type="checkbox" id="taxToggle">
+          <label for="taxToggle">Display price with taxes</label>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -61,7 +72,7 @@
 
     <% for(let listing of alllisting){ %>
 
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-4 col-md-6 col-12">
 
         <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
 

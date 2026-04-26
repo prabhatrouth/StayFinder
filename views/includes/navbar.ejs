@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
 
   <div class="container">
 
@@ -18,23 +18,23 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- NAV -->
+    <!-- MENU -->
     <div class="collapse navbar-collapse" id="navbarNav">
 
       <!-- LEFT -->
-      <ul class="navbar-nav gap-lg-3">
+      <ul class="navbar-nav">
 
         <li class="nav-item">
-          <a href="/listings" class="nav-link fw-semibold">Home</a>
+          <a href="/listings" class="nav-link nav-close">Home</a>
         </li>
 
         <% if(currUser){ %>
           <li class="nav-item">
-            <a href="/listings/my" class="nav-link fw-semibold">My Listings</a>
+            <a href="/listings/my" class="nav-link nav-close">My Listings</a>
           </li>
 
           <li class="nav-item">
-            <a href="/listings/new" class="nav-link add-btn">
+            <a href="/listings/new" class="nav-link nav-close text-danger fw-bold">
               Add Listing
             </a>
           </li>
@@ -43,18 +43,16 @@
       </ul>
 
       <!-- RIGHT -->
-      <ul class="navbar-nav ms-auto mt-3 mt-lg-0 gap-2">
+      <ul class="navbar-nav ms-auto mt-3 mt-lg-0">
 
         <% if(currUser){ %>
 
           <li class="nav-item">
-            <div class="user-badge text-center text-lg-start">
-              👤 <%= currUser.username %>
-            </div>
+            <span class="nav-link">👤 <%= currUser.username %></span>
           </li>
 
           <li class="nav-item">
-            <a href="/logout" class="btn btn-dark rounded-pill px-3 w-100 w-lg-auto">
+            <a href="/logout" class="btn btn-dark w-100 mt-2 nav-close">
               Logout
             </a>
           </li>
@@ -62,13 +60,13 @@
         <% } else { %>
 
           <li class="nav-item">
-            <a href="/login" class="btn btn-outline-dark rounded-pill px-3 w-100 w-lg-auto">
+            <a href="/login" class="btn btn-outline-dark w-100 mt-2 nav-close">
               Login
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="/signup" class="btn btn-dark rounded-pill px-3 w-100 w-lg-auto">
+            <a href="/signup" class="btn btn-dark w-100 mt-2 nav-close">
               Sign up
             </a>
           </li>
@@ -82,3 +80,19 @@
   </div>
 
 </nav>
+
+<!-- AUTO CLOSE -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navLinks = document.querySelectorAll(".nav-close");
+    const navbar = document.getElementById("navbarNav");
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        if (navbar.classList.contains("show")) {
+          new bootstrap.Collapse(navbar).hide();
+        }
+      });
+    });
+  });
+</script>
