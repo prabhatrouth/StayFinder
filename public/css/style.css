@@ -231,3 +231,49 @@ footer {
   gap: 10px;
   overflow-x: auto;
 }
+/* ================= FOOTER ================= */
+.footer {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  padding: 40px 0 20px;
+  margin-top: 40px;
+}
+
+/* LINKS */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 6px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.footer-links a:hover {
+  color: #000;
+}
+
+/* SOCIAL */
+.footer-socials i {
+  font-size: 18px;
+  margin-left: 12px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: 0.2s;
+}
+
+.footer-socials i:hover {
+  color: #000;
+}
+
+/* BOTTOM */
+.footer-bottom {
+  margin-top: 10px;
+}
