@@ -8,15 +8,12 @@ const { listingSchema } = require("../schema");
 const { isLoggedIn, isOwner } = require("../middleware");
 const listingController = require("../controllers/listings");
 
-// 🔥 MULTER + CLOUDINARY
+// 🔥 MULTER (UPDATED)
 const multer = require("multer");
-const { storage } = require("../cloudConfig");
-const upload = multer({ storage });
+const upload = multer({ dest: "uploads/" });
 
 // ================= VALIDATION =================
 const validateListing = (req, res, next) => {
-
-  // 🔥 FIX (IMPORTANT)
   if (!req.body.listing) {
     req.body.listing = {};
   }
@@ -61,12 +58,12 @@ router.get(
   wrapAsync(listingController.renderEditForm)
 );
 
-// 🔥 UPDATE (FIXED)
+// UPDATE
 router.put(
   "/:id",
   isLoggedIn,
   isOwner,
-  upload.single("listing[image]"), // 🔥 ADD THIS
+  upload.single("listing[image]"),
   validateListing,
   wrapAsync(listingController.updateListing)
 );

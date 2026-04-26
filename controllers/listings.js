@@ -1,5 +1,6 @@
 const Listing = require("../models/listing");
 const expressError = require("../utils/expressError");
+const cloudinary = require("../cloudConfig");
 
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
@@ -83,11 +84,13 @@ module.exports.createListing = async (req, res) => {
     newListing.geometry = geoData.body.features[0].geometry;
   }
 
-  // IMAGE
+  // IMAGE UPLOAD (🔥 FIXED)
   if (req.file) {
+    const result = await cloudinary.uploader.upload(req.file.path);
+
     newListing.image = {
-      url: req.file.path,
-      filename: req.file.filename
+      url: result.secure_url,
+      filename: result.public_id
     };
   }
 
@@ -98,12 +101,11 @@ module.exports.createListing = async (req, res) => {
 };
 
 
-// ================= SHOW (🔥 FINAL FIX) =================
+// ================= SHOW =================
 module.exports.showListing = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    // ✅ check valid Mongo ID
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {
       return next(new expressError(400, "Invalid ID"));
     }
@@ -111,18 +113,14 @@ module.exports.showListing = async (req, res, next) => {
     const listing = await Listing.findById(id)
       .populate({
         path: "reviews",
-        populate: {
-          path: "author"
-        }
+        populate: { path: "author" }
       })
       .populate("owner");
 
-    // ✅ not found
     if (!listing) {
       return next(new expressError(404, "Listing Not Found"));
     }
 
-    // ✅ ensure reviews always array
     if (!listing.reviews) {
       listing.reviews = [];
     }
@@ -156,10 +154,18 @@ module.exports.updateListing = async (req, res) => {
   );
 
   if (req.file) {
+    // OPTIONAL: delete old image from Cloudinary
+    if (listing.image && listing.image.filename) {
+      await cloudinary.uploader.destroy(listing.image.filename);
+    }
+
+    const result = await cloudinary.uploader.upload(req.file.path);
+
     listing.image = {
-      url: req.file.path,
-      filename: req.file.filename
+      url: result.secure_url,
+      filename: result.public_id
     };
+
     await listing.save();
   }
 
@@ -170,7 +176,15 @@ module.exports.updateListing = async (req, res) => {
 
 // ================= DELETE =================
 module.exports.deleteListing = async (req, res) => {
+  const listing = await Listing.findById(req.params.id);
+
+  // OPTIONAL: delete image from Cloudinary
+  if (listing && listing.image && listing.image.filename) {
+    await cloudinary.uploader.destroy(listing.image.filename);
+  }
+
   await Listing.findByIdAndDelete(req.params.id);
+
   req.flash("success", "Listing Deleted");
   res.redirect("/listings");
 };
